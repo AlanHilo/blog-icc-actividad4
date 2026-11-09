@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conexión Digital ICC | Blog Educativo de Alan Jareth Castells Montalvo</title>
+    <meta name="author" content="Alan Jareth Castells Montalvo">
+    <meta name="description" content="Blog educativo sobre las herramientas de comunicación y socialización digital en el proceso formativo del Instituto Consorcio Clavijero (ICC).">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --icc-navy: #0a2540;
+            --icc-blue: #0f4c81;
+            --icc-sky: #0284c7;
+            --icc-sky-soft: #e0f2fe;
+            --icc-teal: #0d9488;
+            --icc-teal-soft: #ccfbf1;
+            --icc-gold: #d97706;
+            --icc-gold-light: #fef3c7;
+            --bg-body: #f1f5f9;
+            --bg-surface: #ffffff;
+            --text-dark: #0f172a;
+            --text-body: #334155;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.05);
+            --shadow-md: 0 12px 32px -4px rgba(15, 23, 42, 0.08);
+            --shadow-lg: 0 20px 45px -10px rgba(10, 37, 64, 0.16);
+            --radius-md: 14px;
+            --radius-lg: 22px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-body);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+
+        /* Barra Superior Institucional */
+        .institutional-bar {
+            background: linear-gradient(90deg, #061626 0%, #0a2540 100%);
+            color: #e2e8f0;
+            font-size: 0.85rem;
+            padding: 0.65rem 2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .institutional-bar-inner {
+            max-width: 1240px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .inst-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 600;
+            color: #ffffff;
+        }
+
+        .inst-pill {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fcd34d;
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            padding: 0.15rem 0.65rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+        }
+
+        /* Hero / Cabecera del Blog */
+        header.hero {
+            position: relative;
+            background: linear-gradient(135deg, rgba(10, 37, 64, 0.92) 0%, rgba(15, 76, 129, 0.88) 55%, rgba(13, 148, 136, 0.85) 100%),
+                        url('img/hero.jpg') center/cover no-repeat;
+            color: #ffffff;
+            padding: 5rem 1.5rem 4.5rem;
+            overflow: hidden;
+            border-bottom: 5px solid var(--icc-gold);
+        }
+
+        .hero-container {
+            max-width: 1120px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(255, 255, 255, 0.14);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #fde68a;
+            padding: 0.45rem 1.2rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2.1rem, 4vw, 3.25rem);
+            font-weight: 800;
+            line-height: 1.2;
+            max-width: 950px;
+            margin: 0 auto 1.2rem;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: #e2e8f0;
+            max-width: 780px;
+            margin: 0 auto 2.25rem;
+            font-weight: 400;
+        }
+
+        /* Tarjeta de Autor en Cabecera */
+        .hero-author-bar {
+            display: inline-flex;
+            align-items: center;
+            gap: 1.5rem;
+            background: rgba(10, 25, 47, 0.72);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            padding: 0.9rem 1.75rem;
+            border-radius: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+        }
+
+        .hero-author-profile {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            text-align: left;
+        }
+
+        .hero-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.1rem;
+            border: 2px solid #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-author-info small {
+            display: block;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        .hero-author-info strong {
+            font-size: 1.05rem;
+            color: #fde68a;
+            font-weight: 700;
+        }
+
+        .hero-divider {
+            width: 1px;
+            height: 34px;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-meta-item {
+            text-align: left;
+            font-size: 0.9rem;
+        }
+
+        .hero-meta-item small {
+            display: block;
+            font-size: 0.73rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .hero-meta-item span {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Barra de Navegación Sticky */
+        nav.sticky-nav {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .nav-inner {
+            max-width: 1240px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-inner a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 0.45rem 1rem;
+            border-radius: 999px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-inner a:hover {
+            background: var(--icc-sky-soft);
+            color: var(--icc-blue);
+        }
+
+        /* Layout Principal */
+        .layout-wrapper {
+            max-width: 1240px;
+            margin: 2.75rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 2.5rem;
+            align-items: start;
+        }
+
+        @media (max-width: 980px) {
+            .layout-wrapper {
+                grid-template-columns: 1fr;
+            }
+            .hero-divider {
+                display: none;
+            }
+        }
+
+        /* Contenedor del Post */
+        article.post-content {
+            background: var(--bg-surface);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+        }
+
+        /* Banner Destacado del Post */
+        .post-featured-banner {
+            position: relative;
+            height: 310px;
+            overflow: hidden;
+        }
+
+        .post-featured-banner img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .post-featured-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(10, 37, 64, 0.85) 0%, rgba(10, 37, 64, 0.2) 60%, transparent 100%);
+            display: flex;
+            align-items: flex-end;
+            padding: 2rem 2.5rem;
+        }
+
+        .post-featured-caption {
+            color: #ffffff;
+        }
+
+        .post-featured-caption span {
+            background: var(--icc-gold);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .post-featured-caption h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.85rem;
+            margin-top: 0.6rem;
+            line-height: 1.3;
+        }
+
+        .post-body {
+            padding: 2.75rem;
+        }
+
+        @media (max-width: 640px) {
+            .post-body {
+                padding: 1.5rem;
+            }
+        }
+
+        .lead-paragraph {
+            font-size: 1.08rem;
+            color: var(--text-dark);
+            margin-bottom: 1.35rem;
+            text-align: justify;
+        }
+
+        .intro-highlight {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border-left: 5px solid var(--icc-sky);
+            padding: 1.25rem 1.5rem;
+            border-radius: 0 12px 12px 0;
+            margin: 1.75rem 0 2.5rem;
+            color: #0c4a6e;
+            font-weight: 500;
+            text-align: justify;
+        }
+
+        /* Encabezados de Categoría Principal (Títulos) */
+        .category-banner {
+            margin: 3rem 0 1.75rem;
+            padding: 1.5rem 1.75rem;
+            border-radius: var(--radius-md);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.25rem;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .category-banner.comm-theme {
+            background: linear-gradient(135deg, #0a2540 0%, #0284c7 100%);
+        }
+
+        .category-banner.soc-theme {
+            background: linear-gradient(135deg, #064e3b 0%, #0d9488 100%);
+        }
+
+        .category-banner-text span {
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            opacity: 0.9;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .category-banner-text h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.65rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .category-banner-icon {
+            font-size: 2.5rem;
+            background: rgba(255, 255, 255, 0.16);
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .category-intro {
+            margin-bottom: 2rem;
+            color: var(--text-body);
+            text-align: justify;
+            font-size: 1.02rem;
+        }
+
+        /* Tarjetas de Herramientas con Imagen Ilustrativa (Subtemas) */
+        .tool-article-card {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+            margin-bottom: 2.25rem;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .tool-article-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .tool-visual-header {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            background: #f8fafc;
+            border-bottom: 1px solid var(--border);
+        }
+
+        @media (max-width: 720px) {
+            .tool-visual-header {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .tool-image-box {
+            position: relative;
+            min-height: 210px;
+            overflow: hidden;
+        }
+
+        .tool-image-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .tool-article-card:hover .tool-image-box img {
+            transform: scale(1.05);
+        }
+
+        .tool-number-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(10, 37, 64, 0.88);
+            backdrop-filter: blur(6px);
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 0.8rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .tool-definition-area {
+            padding: 1.6rem 1.85rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .tool-title-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .tool-title-row h3 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.45rem;
+            color: var(--icc-navy);
+            font-weight: 700;
+        }
+
+        .sync-pill {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            letter-spacing: 0.4px;
+        }
+
+        .pill-comm {
+            background: var(--icc-sky-soft);
+            color: #0369a1;
+        }
+
+        .pill-soc {
+            background: var(--icc-teal-soft);
+            color: #0f766e;
+        }
+
+        .def-label {
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.6px;
+            margin-bottom: 0.35rem;
+            display: block;
+        }
+
+        .tool-def-text {
+            color: var(--text-body);
+            text-align: justify;
+            font-size: 0.98rem;
+        }
+
+        /* Caja de Ejemplo Aplicado al ICC */
+        .tool-icc-example {
+            padding: 1.35rem 1.85rem;
+            background: linear-gradient(90deg, #fffbeb 0%, #fef3c7 100%);
+            border-top: 1px solid #fde68a;
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .example-badge-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: var(--icc-gold);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-top: 0.15rem;
+        }
+
+        .example-content h4 {
+            font-size: 0.92rem;
+            font-weight: 800;
+            color: #92400e;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-bottom: 0.3rem;
+        }
+
+        .example-content p {
+            color: #451a03;
+            font-size: 0.96rem;
+            text-align: justify;
+        }
+
+        /* Tabla Comparativa Visual */
+        .summary-table-wrapper {
+            margin: 2.75rem 0;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+        }
+
+        .summary-table-header {
+            background: var(--icc-navy);
+            color: #ffffff;
+            padding: 1rem 1.5rem;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+
+        table.summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.92rem;
+        }
+
+        table.summary-table th,
+        table.summary-table td {
+            padding: 0.85rem 1.15rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        table.summary-table th {
+            background: #f8fafc;
+            color: var(--icc-navy);
+            font-weight: 700;
+        }
+
+        table.summary-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Sección de Reflexión */
+        .reflection-card {
+            background: linear-gradient(135deg, #0a2540 0%, #1e3a8a 100%);
+            color: #ffffff;
+            border-radius: 18px;
+            padding: 2.25rem;
+            margin: 2.75rem 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+        }
+
+        .reflection-card h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.55rem;
+            color: #fde68a;
+            margin-bottom: 1rem;
+        }
+
+        .reflection-card p {
+            color: #e2e8f0;
+            text-align: justify;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .reflection-signature {
+            margin-top: 1.25rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+
+        /* Sección de Referencias APA */
+        .apa-section {
+            margin-top: 2.75rem;
+            padding: 2rem;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+        }
+
+        .apa-section h2 {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.45rem;
+            color: var(--icc-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .apa-subtitle {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            margin-bottom: 1.35rem;
+        }
+
+        .apa-reference {
+            padding-left: 2.2rem;
+            text-indent: -2.2rem;
+            margin-bottom: 1.15rem;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            word-break: break-word;
+            background: #ffffff;
+            padding-top: 0.85rem;
+            padding-bottom: 0.85rem;
+            padding-right: 1rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+
+        .apa-reference a {
+            color: var(--icc-sky);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .apa-reference a:hover {
+            text-decoration: underline;
+        }
+
+        /* Sidebar Derecha */
+        aside.blog-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
+            position: sticky;
+            top: 4.75rem;
+        }
+
+        .sidebar-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .author-banner-bg {
+            height: 85px;
+            background: linear-gradient(135deg, var(--icc-navy), var(--icc-sky));
+        }
+
+        .author-sidebar-body {
+            padding: 0 1.5rem 1.6rem;
+            text-align: center;
+            margin-top: -42px;
+        }
+
+        .author-sidebar-avatar {
+            width: 84px;
+            height: 84px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f59e0b, #b45309);
+            color: #ffffff;
+            font-size: 1.85rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.85rem;
+            border: 4px solid #ffffff;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+        }
+
+        .author-sidebar-body h3 {
+            font-size: 1.18rem;
+            color: var(--icc-navy);
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+        }
+
+        .author-badge-role {
+            display: inline-block;
+            background: var(--icc-sky-soft);
+            color: var(--icc-blue);
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 0.2rem 0.75rem;
+            border-radius: 999px;
+            margin-bottom: 1rem;
+        }
+
+        .author-details-list {
+            text-align: left;
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1rem;
+            font-size: 0.88rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.55rem;
+        }
+
+        .author-details-list div strong {
+            color: var(--icc-navy);
+        }
+
+        .sidebar-box-padded {
+            padding: 1.5rem;
+        }
+
+        .sidebar-heading {
+            font-size: 1.02rem;
+            font-weight: 800;
+            color: var(--icc-navy);
+            margin-bottom: 1rem;
+            padding-bottom: 0.6rem;
+            border-bottom: 2px solid var(--icc-gold);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .toc-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.45rem;
+        }
+
+        .toc-links a {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            color: var(--text-body);
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.45rem 0.65rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .toc-links a:hover {
+            background: var(--icc-sky-soft);
+            color: var(--icc-navy);
+            font-weight: 700;
+            transform: translateX(3px);
+        }
+
+        .checklist-items {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.65rem;
+            font-size: 0.86rem;
+        }
+
+        .checklist-items li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.55rem;
+            color: var(--text-body);
+        }
+
+        .check-badge {
+            background: #dcfce7;
+            color: #15803d;
+            font-weight: 800;
+            font-size: 0.72rem;
+            padding: 0.15rem 0.45rem;
+            border-radius: 5px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        /* Footer */
+        footer.site-footer {
+            background: var(--icc-navy);
+            color: #cbd5e1;
+            padding: 3rem 1.5rem;
+            margin-top: 4rem;
+            border-top: 4px solid var(--icc-gold);
+        }
+
+        .footer-inner {
+            max-width: 1120px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+
+        .footer-inner h4 {
+            color: #ffffff;
+            font-size: 1.1rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .footer-inner p {
+            font-size: 0.88rem;
+            color: #94a3b8;
+        }
+
+        .footer-author-stamp {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 0.85rem 1.35rem;
+            border-radius: 12px;
+            text-align: right;
+        }
+
+        .footer-author-stamp strong {
+            color: #fde68a;
+            display: block;
+            font-size: 0.98rem;
+        }
+
+        .footer-author-stamp span {
+            font-size: 0.82rem;
+            color: #cbd5e1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra Institucional Superior -->
+    <div class="institutional-bar">
+        <div class="institutional-bar-inner">
+            <div class="inst-brand">
+                <span>🏛️ Instituto Consorcio Clavijero (ICC)</span>
+                <span class="inst-pill">Módulo 3 • Actividad 4</span>
+            </div>
+            <div>
+                ✍️ Autor: <strong>Alan Jareth Castells Montalvo</strong>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero / Cabecera Principal del Blog -->
+    <header class="hero">
+        <div class="hero-container">
+            <div class="hero-tag">
+                <span>🌐 Blog con Fines Educativos • Educación Superior en Línea</span>
+            </div>
+            <h1 class="hero-title">Conexión Digital ICC: Herramientas de Comunicación y Socialización en el Aprendizaje en Línea</h1>
+            <p class="hero-subtitle">
+                Definiciones, características y ejemplos prácticos de aplicación tecnológica durante mi formación académica en el Instituto Consorcio Clavijero.
+            </p>
+
+            <!-- Datos visibles del Autor y Publicación -->
+            <div class="hero-author-bar">
+                <div class="hero-author-profile">
+                    <div class="hero-avatar">AJ</div>
+                    <div class="hero-author-info">
+                        <small>Autor de la Publicación</small>
+                        <strong>Alan Jareth Castells Montalvo</strong>
+                    </div>
+                </div>
+                <div class="hero-divider"></div>
+                <div class="hero-meta-item">
+                    <small>Institución Educativa</small>
+                    <span>Instituto Consorcio Clavijero (ICC)</span>
+                </div>
+                <div class="hero-divider"></div>
+                <div class="hero-meta-item">
+                    <small>Fecha de Elaboración</small>
+                    <span>8 de noviembre de 2026</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menú de Navegación por Títulos y Subtemas -->
+    <nav class="sticky-nav">
+        <div class="nav-inner">
+            <a href="#introduccion">🏠 Introducción</a>
+            <a href="#herramientas-comunicacion">💬 1. Herramientas de Comunicación</a>
+            <a href="#herramientas-socializacion">🌐 2. Herramientas de Socialización</a>
+            <a href="#cuadro-comparativo">📊 3. Síntesis Comparativa</a>
+            <a href="#reflexion-icc">💡 4. Reflexión Formativa</a>
+            <a href="#referencias-apa">📚 5. Referencias APA</a>
+        </div>
+    </nav>
+
+    <!-- Contenedor Principal -->
+    <div class="layout-wrapper">
+        <article class="post-content">
+            <!-- Imagen Principal del Post -->
+            <div class="post-featured-banner" id="introduccion">
+                <img src="img/banner.jpg" alt="Estudiante interactuando en entornos digitales de educación en línea">
+                <div class="post-featured-overlay">
+                    <div class="post-featured-caption">
+                        <span>Publicación Académica Principal</span>
+                        <h2>Las Herramientas Digitales de Comunicación y Socialización como Pilares de mis Estudios en el ICC</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="post-body">
+                <p class="lead-paragraph">
+                    En la educación superior en modalidad virtual, la distancia geográfica deja de ser una barrera cuando empleamos estratégicamente las Tecnologías de la Información y la Comunicación (TIC). Como estudiante del <strong>Instituto Consorcio Clavijero (ICC)</strong>, comprender el funcionamiento de las herramientas digitales de comunicación y socialización es fundamental para mantener un diálogo constante con mi Docente Digital, colaborar en equipo con mis compañeros y construir un entorno de aprendizaje autónomo, ético y organizado.
+                </p>
+
+                <div class="intro-highlight">
+                    <strong>Propósito de este blog educativo:</strong> Definir con claridad conceptual y ejemplificar en escenarios reales del Instituto Consorcio Clavijero las tres herramientas esenciales de <strong>comunicación digital</strong> (<em>correo electrónico, mensajería instantánea y videollamadas</em>) y las tres herramientas de <strong>socialización digital</strong> (<em>redes sociales, blogs y páginas personales</em>), integrando referencias bibliográficas conforme a la 7.ª edición del formato APA.
+                </div>
+
+                <!-- =====================================================
+                     SECCIÓN 1: HERRAMIENTAS DE COMUNICACIÓN
+                     ===================================================== -->
+                <section id="herramientas-comunicacion">
+                    <div class="category-banner comm-theme">
+                        <div class="category-banner-text">
+                            <span>Bloque Temático 01 • Interacción Directa Síncrona y Asíncrona</span>
+                            <h2>1. Herramientas de Comunicación Digital</h2>
+                        </div>
+                        <div class="category-banner-icon">📨</div>
+                    </div>
+
+                    <p class="category-intro">
+                        Las herramientas de comunicación digital son aplicaciones y servicios telemáticos diseñados para transmitir mensajes escritos, archivos adjuntos o señales audiovisuales entre un emisor y uno o más receptores. Se clasifican según el tiempo en que ocurre la interacción en <strong>asíncronas</strong> (cuando no requieren coincidencia temporal) y <strong>síncronas</strong> (cuando el intercambio sucede en tiempo real).
+                    </p>
+
+                    <!-- 1.1 Correo Electrónico -->
+                    <div class="tool-article-card" id="correo-electronico">
+                        <div class="tool-visual-header">
+                            <div class="tool-image-box">
+                                <span class="tool-number-badge">Subtema 1.1</span>
+                                <img src="img/correo.jpg" alt="Uso del correo electrónico institucional en computadora">
+                            </div>
+                            <div class="tool-definition-area">
+                                <div class="tool-title-row">
+                                    <h3>1.1. Correo electrónico</h3>
+                                    <span class="sync-pill pill-comm">Comunicación Asíncrona</span>
+                                </div>
+                                <span class="def-label">Definición Conceptual</span>
+                                <p class="tool-def-text">
+                                    El correo electrónico (<em>e-mail</em>) es un servicio de comunicación digital de carácter <strong>asíncrono</strong> que permite redactar, enviar, recibir y archivar mensajes estructurados a través de internet, así como adjuntar documentos de texto, hojas de cálculo, presentaciones o imágenes. Gracias a su estructura formal (destinatario, asunto, cuerpo del mensaje y firma), constituye el medio oficial de comunicación académica e institucional.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="tool-icc-example">
+                            <div class="example-badge-icon">🎓</div>
+                            <div class="example-content">
+                                <h4>Ejemplo de cómo imagino y aplico su uso en mis estudios en el ICC:</h4>
+                                <p>
+                                    Durante mis estudios en el <strong>Instituto Consorcio Clavijero</strong>, utilizo mi <strong>cuenta de correo institucional</strong> para enviar una consulta formal a mi Docente Digital solicitando orientación puntual sobre los criterios de evaluación de una actividad integradora, adjuntando un borrador preliminar para su revisión. Asimismo, reviso diariamente mi bandeja de entrada para atender comunicados sobre fechas de reinscripción, calendario trimestral y avisos de coordinación académica.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 1.2 Mensajería Instantánea -->
+                    <div class="tool-article-card" id="mensajeria-instantanea">
+                        <div class="tool-visual-header">
+                            <div class="tool-image-box">
+                                <span class="tool-number-badge">Subtema 1.2</span>
+                                <img src="img/mensajeria.jpg" alt="Aplicación de mensajería instantánea para coordinación académica">
+                            </div>
+                            <div class="tool-definition-area">
+                                <div class="tool-title-row">
+                                    <h3>1.2. Mensajería instantánea</h3>
+                                    <span class="sync-pill pill-comm">Comunicación Síncrona</span>
+                                </div>
+                                <span class="def-label">Definición Conceptual</span>
+                                <p class="tool-def-text">
+                                    La mensajería instantánea es una herramienta de comunicación primordialmente <strong>síncrona</strong> (en tiempo real) que permite el intercambio ágil e inmediato de mensajes breves de texto, notas de voz, enlaces web y archivos ligeros entre dos usuarios o en chats grupales desde computadoras y dispositivos móviles (como el mensajero interno de la plataforma educativa, Google Chat, WhatsApp o Telegram).
+                                </p>
+                            </div>
+                        </div>
+                        <div class="tool-icc-example">
+                            <div class="example-badge-icon">🎓</div>
+                            <div class="example-content">
+                                <h4>Ejemplo de cómo imagino y aplico su uso en mis estudios en el ICC:</h4>
+                                <p>
+                                    En mi proceso formativo dentro del <strong>ICC</strong>, empleo el <strong>mensajero instantáneo de la plataforma educativa</strong> y un grupo de estudio en Google Chat/WhatsApp con mis compañeros de módulo para resolver dudas rápidas sobre las instrucciones de la semana, ponernos de acuerdo en el reparto de subtemas para un trabajo colaborativo y enviarnos recordatorios oportunos antes del cierre dominical de entregas.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 1.3 Videollamadas -->
+                    <div class="tool-article-card" id="videollamadas">
+                        <div class="tool-visual-header">
+                            <div class="tool-image-box">
+                                <span class="tool-number-badge">Subtema 1.3</span>
+                                <img src="img/videollamada.jpg" alt="Sesión académica síncrona por videollamada">
+                            </div>
+                            <div class="tool-definition-area">
+                                <div class="tool-title-row">
+                                    <h3>1.3. Videollamadas</h3>
+                                    <span class="sync-pill pill-comm">Síncrona Audiovisual</span>
+                                </div>
+                                <span class="def-label">Definición Conceptual</span>
+                                <p class="tool-def-text">
+                                    Las videollamadas o videoconferencias son herramientas de comunicación <strong>síncrona audiovisual</strong> que permiten conectar en tiempo real a dos o más personas ubicadas en distintos puntos geográficos mediante la transmisión simultánea de voz e imagen (por ejemplo, Google Meet, Zoom o Microsoft Teams). Integran funciones pedagógicas clave como compartir pantalla, pizarra interactiva, grabación de la sesión y chat en vivo.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="tool-icc-example">
+                            <div class="example-badge-icon">🎓</div>
+                            <div class="example-content">
+                                <h4>Ejemplo de cómo imagino y aplico su uso en mis estudios en el ICC:</h4>
+                                <p>
+                                    A lo largo de mis trimestres en el <strong>Instituto Consorcio Clavijero</strong>, participo en las <strong>sesiones síncronas por videollamada en Google Meet</strong> organizadas por mi Docente Digital, donde analiza en pantalla compartida ejemplos prácticos de los temas del módulo y responde nuestras preguntas en vivo por micrófono. También realizo videollamadas con compañeros de clase para practicar presentaciones orales y revisar proyectos en conjunto.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =====================================================
+                     SECCIÓN 2: HERRAMIENTAS DE SOCIALIZACIÓN
+                     ===================================================== -->
+                <section id="herramientas-socializacion">
+                    <div class="category-banner soc-theme">
+                        <div class="category-banner-text">
+                            <span>Bloque Temático 02 • Comunidad, Divulgación e Identidad Digital</span>
+                            <h2>2. Herramientas de Socialización Digital</h2>
+                        </div>
+                        <div class="category-banner-icon">🌐</div>
+                    </div>
+
+                    <p class="category-intro">
+                        Las herramientas de socialización digital pertenecen al ecosistema de la Web 2.0 y están orientadas a la creación de comunidades de aprendizaje, la publicación estructurada de conocimientos, el intercambio abierto de ideas y la proyección del portafolio e identidad académica del estudiante en entornos digitales.
+                    </p>
+
+                    <!-- 2.1 Redes Sociales -->
+                    <div class="tool-article-card" id="redes-sociales">
+                        <div class="tool-visual-header">
+                            <div class="tool-image-box">
+                                <span class="tool-number-badge">Subtema 2.1</span>
+                                <img src="img/redes.jpg" alt="Plataformas de redes sociales y comunidades digitales">
+                            </div>
+                            <div class="tool-definition-area">
+                                <div class="tool-title-row">
+                                    <h3>2.1. Redes sociales</h3>
+                                    <span class="sync-pill pill-soc">Comunidad e Interacción</span>
+                                </div>
+                                <span class="def-label">Definición Conceptual</span>
+                                <p class="tool-def-text">
+                                    Las redes sociales son plataformas digitales conformadas por comunidades de usuarios y organizaciones vinculados por intereses académicos, profesionales o culturales comunes (como Facebook, LinkedIn, YouTube o X). Su función principal es facilitar la creación de perfiles, la difusión de contenidos multimedia, el debate mediante comentarios y la construcción de redes de colaboración sin límites de distancia.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="tool-icc-example">
+                            <div class="example-badge-icon">🎓</div>
+                            <div class="example-content">
+                                <h4>Ejemplo de cómo imagino y aplico su uso en mis estudios en el ICC:</h4>
+                                <p>
+                                    Como alumno del <strong>ICC</strong>, sigo las <strong>redes sociales oficiales del Instituto Consorcio Clavijero</strong> para enterarme oportunamente de conferencias virtuales, talleres de actualización, convocatorias de becas y eventos culturales; además, participo en comunidades estudiantiles y grupos académicos de mi carrera para compartir infografías, recomendar artículos científicos y fortalecer el sentido de pertenencia universitaria.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2.2 Blogs -->
+                    <div class="tool-article-card" id="blogs">
+                        <div class="tool-visual-header">
+                            <div class="tool-image-box">
+                                <span class="tool-number-badge">Subtema 2.2</span>
+                                <img src="img/blogs.jpg" alt="Redacción y publicación de un blog educativo">
+                            </div>
+                            <div class="tool-definition-area">
+                                <div class="tool-title-row">
+                                    <h3>2.2. Blogs</h3>
+                                    <span class="sync-pill pill-soc">Publicación Cronológica</span>
+                                </div>
+                                <span class="def-label">Definición Conceptual</span>
+                                <p class="tool-def-text">
+                                    Un blog (o bitácora digital) es un sitio web actualizado de forma periódica donde uno o varios autores publican artículos —llamados <em>entradas</em> o <em>posts</em>— organizados en orden cronológico inverso sobre una temática particular. En el ámbito universitario, los blogs educativos permiten estructurar información en títulos y subtemas, ejercitar la redacción académica, citar fuentes en formato APA y recibir retroalimentación mediante comentarios (Nieves, 2025).
+                                </p>
+                            </div>
+                        </div>
+                        <div class="tool-icc-example">
+                            <div class="example-badge-icon">🎓</div>
+                            <div class="example-content">
+                                <h4>Ejemplo de cómo imagino y aplico su uso en mis estudios en el ICC:</h4>
+                                <p>
+                                    Durante mi formación en el <strong>Instituto Consorcio Clavijero</strong> —tal como lo realizo en esta Actividad 4—, diseño y publico un <strong>blog educativo</strong> respaldado por mi cuenta institucional para exponer investigaciones, sintetizar conceptos clave de mis asignaturas y reflexionar sobre casos prácticos, compartiendo el enlace público con mi Docente Digital y compañeros para enriquecer el aprendizaje colectivo.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 2.3 Páginas Personales -->
+                    <div class="tool-article-card" id="paginas-personales">
+                        <div class="tool-visual-header">
+                            <div class="tool-image-box">
+                                <span class="tool-number-badge">Subtema 2.3</span>
+                                <img src="img/paginas.jpg" alt="Diseño de página personal y portafolio digital en línea">
+                            </div>
+                            <div class="tool-definition-area">
+                                <div class="tool-title-row">
+                                    <h3>2.3. Páginas personales</h3>
+                                    <span class="sync-pill pill-soc">Portafolio e Identidad</span>
+                                </div>
+                                <span class="def-label">Definición Conceptual</span>
+                                <p class="tool-def-text">
+                                    Las páginas personales son sitios web individuales de estructura jerárquica y estática (desarrollados en plataformas como Google Sites, GitHub Pages o WordPress) que tienen como propósito presentar el perfil biográfico, académico y profesional de su autor. A diferencia del blog, se organizan por secciones fijas para alojar un portafolio de evidencias, proyectos destacados, certificaciones y medios de contacto.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="tool-icc-example">
+                            <div class="example-badge-icon">🎓</div>
+                            <div class="example-content">
+                                <h4>Ejemplo de cómo imagino y aplico su uso en mis estudios en el ICC:</h4>
+                                <p>
+                                    A lo largo de mi carrera en el <strong>Instituto Consorcio Clavijero</strong>, construyo una <strong>página personal en Google Sites / GitHub Pages</strong> que funge como mi portafolio digital universitario, en donde organizo por pestañas mi semblanza curricular, los mejores proyectos integradores, ensayos y prácticas desarrollados en cada trimestre, consolidando una carta de presentación profesional para mi futuro ejercicio laboral.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =====================================================
+                     SECCIÓN 3: CUADRO COMPARATIVO DE SÍNTESIS
+                     ===================================================== -->
+                <section class="summary-table-wrapper" id="cuadro-comparativo">
+                    <div class="summary-table-header">
+                        📊 3. Síntesis Comparativa de Herramientas Digitales en el ICC
+                    </div>
+                    <table class="summary-table">
+                        <thead>
+                            <tr>
+                                <th>Categoría</th>
+                                <th>Herramienta</th>
+                                <th>Tipo de Interacción</th>
+                                <th>Función Académica Principal en el ICC</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Comunicación</strong></td>
+                                <td>Correo electrónico</td>
+                                <td>Asíncrona formal</td>
+                                <td>Consultas detalladas al Docente Digital, envío de archivos y avisos oficiales.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Comunicación</strong></td>
+                                <td>Mensajería instantánea</td>
+                                <td>Síncrona inmediata</td>
+                                <td>Coordinación rápida con compañeros y resolución de dudas puntuales.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Comunicación</strong></td>
+                                <td>Videollamadas</td>
+                                <td>Síncrona audiovisual</td>
+                                <td>Clases en vivo, asesorías con pantalla compartida y trabajo en equipo.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Socialización</strong></td>
+                                <td>Redes sociales</td>
+                                <td>Comunitaria y abierta</td>
+                                <td>Difusión de eventos del ICC, conferencias y comunidades estudiantiles.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Socialización</strong></td>
+                                <td>Blogs</td>
+                                <td>Publicación cronológica</td>
+                                <td>Divulgación de actividades académicas, ensayos y reflexiones con formato APA.</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Socialización</strong></td>
+                                <td>Páginas personales</td>
+                                <td>Portafolio estático</td>
+                                <td>Presentación de perfil académico y recopilación de proyectos trimestrales.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- =====================================================
+                     SECCIÓN 4: REFLEXIÓN ACADÉMICA
+                     ===================================================== -->
+                <section class="reflection-card" id="reflexion-icc">
+                    <h2>💡 4. Reflexión sobre el Uso de estas Herramientas en mi Proceso Formativo en el ICC</h2>
+                    <p>
+                        Analizar y distinguir las herramientas de comunicación y socialización digital me permite reconocer que el estudio en línea dentro del <strong>Instituto Consorcio Clavijero</strong> no es un proceso solitario, sino una experiencia conectada, dinámica y colaborativa. Mientras que el correo electrónico institucional, la mensajería instantánea y las videollamadas garantizan un canal permanente de acompañamiento con mis Docentes Digitales y compañeros, las redes sociales, los blogs y las páginas personales impulsan mi capacidad para organizar contenidos, expresarme por escrito con rigor ortográfico y difundir el conocimiento adquirido respetando los derechos de autor mediante el formato APA.
+                    </p>
+                    <div class="reflection-signature">
+                        <span>✍️ <strong>Autor:</strong> Alan Jareth Castells Montalvo</span>
+                        <span>🏛️ Instituto Consorcio Clavijero • Módulo 3</span>
+                    </div>
+                </section>
+
+                <!-- =====================================================
+                     SECCIÓN 5: REFERENCIAS BIBLIOGRÁFICAS APA
+                     ===================================================== -->
+                <section class="apa-section" id="referencias-apa">
+                    <h2>📚 5. Referencias Bibliográficas (Formato APA 7.ª edición)</h2>
+                    <p class="apa-subtitle">
+                        Referencias integradas con los 4 elementos normativos del formato APA vigente: Autor, Fecha de publicación, Título de la obra en cursivas y Fuente o enlace web funcional.
+                    </p>
+
+                    <div class="apa-reference">
+                        Instituto Consorcio Clavijero [ICC]. (2026). <em>Módulo 3. Herramientas de comunicación y socialización digital</em> [Material de estudio del curso]. Plataforma Educativa del Instituto Consorcio Clavijero. <a href="https://desarrollo.clavijero.edu.mx/cursos/pregrado/basicas/trimestre_1/MACCBA0225/modulo3/actividades/actividad4/index.html" target="_blank" rel="noopener">https://desarrollo.clavijero.edu.mx/cursos/pregrado/basicas/trimestre_1/MACCBA0225/modulo3/actividades/actividad4/index.html</a>
+                    </div>
+
+                    <div class="apa-reference">
+                        Nieves, G. D. (2025, 26 de junio). <em>Características de un blog y sus componentes esenciales</em>. PostedIn. <a href="https://www.postedin.com/blog/caracteristicas-blog-componentes-esenciales/" target="_blank" rel="noopener">https://www.postedin.com/blog/caracteristicas-blog-componentes-esenciales/</a>
+                    </div>
+
+                    <div class="apa-reference">
+                        PrograMate. (2022, 3 de enero). <em>Cómo crear un blog en Blogger paso a paso [2026]</em> [Video]. YouTube. <a href="https://www.youtube.com/watch?v=39FD-FO9L5E" target="_blank" rel="noopener">https://www.youtube.com/watch?v=39FD-FO9L5E</a>
+                    </div>
+                </section>
+            </div>
+        </article>
+
+        <!-- Barra Lateral (Sidebar) -->
+        <aside class="blog-sidebar">
+            <!-- Tarjeta del Autor -->
+            <div class="sidebar-card">
+                <div class="author-banner-bg"></div>
+                <div class="author-sidebar-body">
+                    <div class="author-sidebar-avatar">AJ</div>
+                    <h3>Alan Jareth Castells Montalvo</h3>
+                    <span class="author-badge-role">Estudiante • Instituto Consorcio Clavijero</span>
+                    <div class="author-details-list">
+                        <div><strong>Actividad:</strong> Actividad 4 (Módulo 3)</div>
+                        <div><strong>Nombre del Blog:</strong> Conexión Digital ICC</div>
+                        <div><strong>Propósito:</strong> Blog con fines educativos sobre herramientas digitales</div>
+                        <div><strong>Fecha:</strong> 8 de noviembre de 2026</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Índice de Navegación por Títulos y Subtemas -->
+            <div class="sidebar-card sidebar-box-padded">
+                <h4 class="sidebar-heading">🗂️ Organización por Subtemas</h4>
+                <ul class="toc-links">
+                    <li><a href="#introduccion">📌 Introducción al tema</a></li>
+                    <li><a href="#correo-electronico">✉️ 1.1. Correo electrónico</a></li>
+                    <li><a href="#mensajeria-instantanea">💬 1.2. Mensajería instantánea</a></li>
+                    <li><a href="#videollamadas">📹 1.3. Videollamadas</a></li>
+                    <li><a href="#redes-sociales">🌐 2.1. Redes sociales</a></li>
+                    <li><a href="#blogs">📝 2.2. Blogs</a></li>
+                    <li><a href="#paginas-personales">🖥️ 2.3. Páginas personales</a></li>
+                    <li><a href="#cuadro-comparativo">📊 3. Síntesis comparativa</a></li>
+                    <li><a href="#reflexion-icc">💡 4. Reflexión en el ICC</a></li>
+                    <li><a href="#referencias-apa">📚 5. Referencias APA</a></li>
+                </ul>
+            </div>
+
+            <!-- Verificación de Instrumento de Evaluación -->
+            <div class="sidebar-card sidebar-box-padded">
+                <h4 class="sidebar-heading">✅ Instrumento de Evaluación</h4>
+                <ul class="checklist-items">
+                    <li>
+                        <span class="check-badge">7 pts</span>
+                        <span>Título del blog, nombre del autor (<strong>Alan Jareth Castells Montalvo</strong>) y organización por títulos y subtemas.</span>
+                    </li>
+                    <li>
+                        <span class="check-badge">7 pts</span>
+                        <span>Definiciones de las 3 herramientas de comunicación.</span>
+                    </li>
+                    <li>
+                        <span class="check-badge">7 pts</span>
+                        <span>3 ejemplos de aplicación en el entorno académico del ICC (comunicación).</span>
+                    </li>
+                    <li>
+                        <span class="check-badge">5 pts</span>
+                        <span>Definiciones de las 3 herramientas de socialización.</span>
+                    </li>
+                    <li>
+                        <span class="check-badge">5 pts</span>
+                        <span>3 ejemplos de aplicación en el entorno académico del ICC (socialización).</span>
+                    </li>
+                    <li>
+                        <span class="check-badge">3 pts</span>
+                        <span>Acceso público sin restricciones y referencias completas en formato APA.</span>
+                    </li>
+                    <li>
+                        <span class="check-badge">1 pt</span>
+                        <span>Nomenclatura <code>A4_AlanCastells</code> y ortografía verificada.</span>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Pie de Página -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div>
+                <h4>Conexión Digital ICC: Herramientas de Comunicación y Socialización en el Aprendizaje en Línea</h4>
+                <p>Blog elaborado con fines educativos para el Módulo 3 • Actividad 4 del Instituto Consorcio Clavijero.</p>
+            </div>
+            <div class="footer-author-stamp">
+                <strong>Alan Jareth Castells Montalvo</strong>
+                <span>Autor • Noviembre de 2026</span>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
