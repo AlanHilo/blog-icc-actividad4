@@ -5,6 +5,7 @@ content_types_xml = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
   <Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
   <Default Extension="xml" ContentType="application/xml"/>
+  <Default Extension="jpg" ContentType="image/jpeg"/>
   <Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>
   <Override PartName="/word/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.styles+xml"/>
 </Types>"""
@@ -17,6 +18,7 @@ rels_xml = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 doc_rels_xml = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
   <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
+  <Relationship Id="rIdImg1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="media/captura_blog.jpg"/>
 </Relationships>"""
 
 styles_xml = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -68,6 +70,51 @@ def make_p(runs, align="left", space_before=0, space_after=160, hanging=0, left=
         runs_xml += f'<w:r>{rPr}<w:t xml:space="preserve">{escaped}</w:t></w:r>'
     return f'<w:p>{pPr}{runs_xml}</w:p>'
 
+def make_image_p(rel_id="rIdImg1", cx=5760000, cy=2610000):
+    return f"""<w:p>
+      <w:pPr>
+        <w:jc w:val="center"/>
+        <w:spacing w:before="160" w:after="220"/>
+      </w:pPr>
+      <w:r>
+        <w:drawing>
+          <wp:inline distT="0" distB="0" distL="0" distR="0">
+            <wp:extent cx="{cx}" cy="{cy}"/>
+            <wp:effectExtent l="0" t="0" r="0" b="0"/>
+            <wp:docPr id="1" name="Captura_Blog_Alan_Castells" descr="Captura de pantalla del blog educativo de Alan Jareth Castells Montalvo"/>
+            <wp:cNvGraphicFramePr>
+              <a:graphicFrameLocks xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main" noChangeAspect="1"/>
+            </wp:cNvGraphicFramePr>
+            <a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+              <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+                  <pic:nvPicPr>
+                    <pic:cNvPr id="0" name="captura_blog.jpg"/>
+                    <pic:cNvPicPr/>
+                  </pic:nvPicPr>
+                  <pic:blipFill>
+                    <a:blip r:embed="{rel_id}"/>
+                    <a:stretch>
+                      <a:fillRect/>
+                    </a:stretch>
+                  </pic:blipFill>
+                  <pic:spPr>
+                    <a:xfrm>
+                      <a:off x="0" y="0"/>
+                      <a:ext cx="{cx}" cy="{cy}"/>
+                    </a:xfrm>
+                    <a:prstGeom prst="rect">
+                      <a:avLst/>
+                    </a:prstGeom>
+                  </pic:spPr>
+                </pic:pic>
+              </a:graphicData>
+            </a:graphic>
+          </wp:inline>
+        </w:drawing>
+      </w:r>
+    </w:p>"""
+
 paragraphs = [
     # Encabezado / Portada
     make_p([("INSTITUTO CONSORCIO CLAVIJERO", True, False, "0F3D5E", 32, False)], align="center", space_before=120, space_after=80),
@@ -90,10 +137,10 @@ paragraphs = [
     make_p([("Enlace directo al blog: ", True, False, "0F3D5E", 22, False),
             ("https://alanhilo.github.io/blog-icc-actividad4/", True, False, "0284C7", 22, True)], space_after=240, shading="F0F9FF"),
 
-    # Paso 3.1 Captura de pantalla
+    # Paso 3.1 Captura de pantalla incrustada
     make_p([("2. CAPTURA DE PANTALLA DE LA PUBLICACIÓN DEL BLOG", True, False, "0F3D5E", 24, False)], space_before=160, space_after=100),
-    make_p([("A continuación, se presenta la evidencia visual (captura de pantalla) de la publicación realizada en el blog educativo:", False, False, "1E293B", 22, False)], align="both", space_after=120),
-    make_p([("[INSERTA AQUÍ LA CAPTURA DE PANTALLA DE TU BLOG PUBLICADO]", True, False, "B45309", 22, False)], align="center", space_before=240, space_after=240, shading="FFFBEB"),
+    make_p([("A continuación, se presenta la evidencia visual (captura de pantalla) de la publicación realizada en el blog educativo:", False, False, "1E293B", 22, False)], align="both", space_after=100),
+    make_image_p("rIdImg1", cx=5760000, cy=2610000),
 
     # Respaldo íntegro del contenido del post (para garantizar cumplimiento total de rúbrica)
     make_p([("3. CONTENIDO ÍNTEGRO PUBLICADO EN EL BLOG", True, False, "0F3D5E", 24, False)], space_before=200, space_after=120, border_bottom=True),
@@ -170,7 +217,11 @@ paragraphs = [
 body_xml = "".join(paragraphs)
 
 document_xml = f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main">
+<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"
+            xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+            xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"
+            xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+            xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
   <w:body>
     {body_xml}
     <w:sectPr>
@@ -180,7 +231,9 @@ document_xml = f"""<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
   </w:body>
 </w:document>"""
 
-output_path = os.path.join(os.path.dirname(__file__), "A4_AlanCastells.docx")
+base_dir = os.path.dirname(__file__)
+output_path = os.path.join(base_dir, "A4_AlanCastells.docx")
+image_path = os.path.join(base_dir, "captura_blog.jpg")
 
 with zipfile.ZipFile(output_path, "w", zipfile.ZIP_DEFLATED) as docx:
     docx.writestr("[Content_Types].xml", content_types_xml)
@@ -188,6 +241,6 @@ with zipfile.ZipFile(output_path, "w", zipfile.ZIP_DEFLATED) as docx:
     docx.writestr("word/_rels/document.xml.rels", doc_rels_xml)
     docx.writestr("word/styles.xml", styles_xml)
     docx.writestr("word/document.xml", document_xml)
+    docx.write(image_path, "word/media/captura_blog.jpg")
 
-print("Archivo Word creado exitosamente en:", output_path)
-
+print("Archivo Word con captura incrustada creado exitosamente en:", output_path)
